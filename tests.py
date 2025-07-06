@@ -42,9 +42,28 @@ def test_get_books_with_specific_genre():
     collector = BooksCollector()
     collector.add_new_book('Книга1')
     collector.add_new_book('Книга2')
+    collector.add_new_book('Книга3')
     collector.set_book_genre('Книга1', 'Фантастика')
-    collector.set_book_genre('Книга2', 'Фантастика')
-    assert set(collector.get_books_with_specific_genre('Фантастика')) == {'Книга1', 'Книга2'}
+    collector.set_book_genre('Книга2', 'Детективы')
+    collector.set_book_genre('Книга3', 'Фантастика')
+    assert set(collector.get_books_with_specific_genre('Фантастика')) == {'Книга1', 'Книга3'}
+    assert set(collector.get_books_with_specific_genre('Детективы')) == {'Книга2'}
+
+# Новый тест: Проверка метода get_book_genre
+def test_get_book_genre_returns_correct_genre():
+    collector = BooksCollector()
+    collector.add_new_book('Книга1')
+    collector.set_book_genre('Книга1', 'Фантастика')
+    assert collector.get_book_genre('Книга1') == 'Фантастика'
+
+# Новый тест: Проверка метода get_books_genre
+def test_get_books_genre_returns_all_books_with_genres():
+    collector = BooksCollector()
+    collector.add_new_book('Книга1')
+    collector.add_new_book('Книга2')
+    collector.set_book_genre('Книга1', 'Фантастика')
+    collector.set_book_genre('Книга2', 'Детективы')
+    assert collector.get_books_genre() == {'Книга1': 'Фантастика', 'Книга2': 'Детективы'}
 
 # 7. Проверка, что книги с возрастным рейтингом не попадают в get_books_for_children
 def test_get_books_for_children_excludes_age_rating():
